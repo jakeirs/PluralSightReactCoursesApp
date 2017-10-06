@@ -4,7 +4,6 @@ import courseApi from '../api/mockCourseApi';
 
 /** This func is going to take a list of courses. */
 export function loadCoursesSuccess(courses) {
-  debugger;
   return { type: types.LOAD_COURSES_SUCCESS, courses };
 }
 

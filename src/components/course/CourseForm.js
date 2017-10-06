@@ -16,7 +16,7 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => 
                 name="authorId"
                 label="Author"
                 value={course.authorId}
-                deafaultOption="Select Author"
+                defaultOption="Select Author"
                 options={allAuthors}
                 onchange={onChange}
                 errors={errors.authorId} />
@@ -32,24 +32,23 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => 
                 value={course.length}
                 onChange={onChange}
                 error={errors.length}/>
-            />
             <input
-            type="submit"
-            disabled={loading}
-            value={loading ? 'Saving' : 'Save'}
-            className="btn btn-primary"
-            onClick={onSave} />
+                type="submit"
+                disabled={loading}
+                value={loading ? 'Saving' : 'Save'}
+                className="btn btn-primary"
+                onClick={onSave} />
         </form>
     )
 }
 
 CourseForm.propsTypes = {
-    course: React.PropTypes.object.isRequired,
-    allAuthors: React.PropTypes.array,
-    onSave: React.PropTypes.array,
-    onChange: React.PropTypes.func.isRequired,
-    loadind: React.PropTypes.bool,
-    errors: React.PropTypes.object
+    course: PropTypes.object.isRequired,
+    allAuthors: PropTypes.array,
+    onSave: PropTypes.array,
+    onChange: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    errors: PropTypes.object
 }
 
 export default CourseForm
