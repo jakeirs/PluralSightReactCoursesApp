@@ -8,6 +8,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseAction from '../../actions/courseActions';
+import CourseList from './CourseList';
 
 /** Container Component
  * It's going to show list of courses*/
@@ -25,11 +26,12 @@ class CoursesPage extends Component {
 
     /** PIECE 3: RENDER function: calling child component*/
     render () {
+        /** Destructure*/
+        const {courses} = this.props;
         return (
             <div>
                 <h1>Courses</h1>
-                {this.props.courses.map(this.courseRow)}
-
+                <CourseList courses={courses} />
             </div>
         );
     }

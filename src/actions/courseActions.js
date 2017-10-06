@@ -18,7 +18,7 @@ export function loadCourses() {
         }).catch(error => {
           throw(error);
         });
-  }
+  };
 }
 
 /** Naming conventions:
