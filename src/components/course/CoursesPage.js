@@ -32,8 +32,7 @@ class CoursesPage extends Component {
             <div>
                 <h1>Courses</h1>
                 <CourseList courses={courses} />
-            </div>
-        );
+            </div>        );
     }
 }
 
