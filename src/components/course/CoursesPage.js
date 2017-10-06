@@ -27,8 +27,9 @@ class CoursesPage extends Component {
     }
 
     onClickSave() {
-        /** this is the most verbose way to show how it works */
-        this.props.dispatch(courseAction.createCourse(this.state.course));
+        /** this is the most verbose way to show how it works. Before was like commented out line */
+        // this.props.dispatch(courseAction.createCourse(this.state.course));
+        this.props.createCourse(this.state.course);
     }
 
     courseRow(course, index) {
@@ -36,7 +37,6 @@ class CoursesPage extends Component {
     }
 
     render () {
-        debugger;
         return (
             <div>
                 <h1>Courses</h1>
@@ -59,31 +59,34 @@ class CoursesPage extends Component {
 
 /** Validation */
 CoursesPage.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    courses: PropTypes.array.isRequired
+    courses: PropTypes.array.isRequired,
+    createCourse: PropTypes.func.isRequired
 };
-
-
 
 /** state in parameters represents state within our Redux store
  * Thanks to mapStateToProps function I am able to access courses
  * by this.props.courses up here on this component
  */
 function mapStateToProps(state, ownProps) {
-    debugger;
     return {
         courses: state.courses
     };
 }
+/** Manually using dispatch */
+function mapDispatchToProps(dispatch) {
+    return {
+        createCourse: course => dispatch(courseAction.createCourse(course))
+    };
+}
 
-export default connect(mapStateToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
 
 /** connect is HOC Higher Order Component
- * 2 parameters, each of them is a function. MapDispatchToProps i optional
+ * 2 parameters, each of them is a function. MapDispatchToProps is optional
  * connect returns a function, which is going to 
- * be call with parameter of Component CoursesPage
+ * be call with parameter of Component (CoursesPage)
  */
 
- /**Dispatch i a function that allows you to fire off your action. 
+ /**Dispatch is a function that allows you to fire off your action.
   * So I will be able to dispatch different actions that we've defined in our
   action file in courseAction */
