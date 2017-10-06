@@ -6,9 +6,12 @@ import React, {Component, PropTypes} from 'react';
 /** to update our CoursePage component to work with Redux 
  * we need to reference the connection function  */
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import * as courseAction from '../../actions/courseActions';
 
+/** Container Component*/
 class CoursesPage extends Component {
+    /** PIECE 1: constructor: 1. initialize state and bind func */
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -18,6 +21,7 @@ class CoursesPage extends Component {
         this.onTitleChange = this.onTitleChange.bind(this);
         this.onClickSave = this.onClickSave.bind(this);
     }
+    /** PIECE 2: Child Functions: */
     onTitleChange (event)  {
         const {course} = this.state;
         course.title = event.target.value;
@@ -29,13 +33,14 @@ class CoursesPage extends Component {
     onClickSave() {
         /** this is the most verbose way to show how it works. Before was like commented out line */
         // this.props.dispatch(courseAction.createCourse(this.state.course));
-        this.props.createCourse(this.state.course);
+        this.props.actions.createCourse(this.state.course);
     }
 
     courseRow(course, index) {
         return <div key={index}>{course.title}</div>;
     }
 
+    /** PIECE 3: RENDER function: calling child component*/
     render () {
         return (
             <div>
@@ -57,11 +62,14 @@ class CoursesPage extends Component {
     }
 }
 
-/** Validation */
+/** PIECE 4 :propTypes Validation*/
 CoursesPage.propTypes = {
     courses: PropTypes.array.isRequired,
-    createCourse: PropTypes.func.isRequired
+    actions: PropTypes.object.isRequired
 };
+
+/** PIECE 5: REDUX CONNECT and related functions*/
+
 
 /** state in parameters represents state within our Redux store
  * Thanks to mapStateToProps function I am able to access courses
@@ -72,10 +80,16 @@ function mapStateToProps(state, ownProps) {
         courses: state.courses
     };
 }
-/** Manually using dispatch */
+/** Manually using dispatch
+ * bindActionCreators do below work for us
+ *
+ * Now we rename course to actions, coz we can handle all acitons
+ * that sit in the courseActions file. But for now it's only one.
+ * Accessible this.props.actions
+ */
 function mapDispatchToProps(dispatch) {
     return {
-        createCourse: course => dispatch(courseAction.createCourse(course))
+        actions: bindActionCreators(courseAction, dispatch)
     };
 }
 
